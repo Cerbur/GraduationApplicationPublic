@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace对应mapper接口所在的位置-->
+<mapper namespace="top.cerbur.graduation.framework.dao.LostTypeDao">
+    <select id="getAllType" resultType="top.cerbur.graduation.framework.bo.LostTypeBO">
+        SELECT id, name
+        FROM lost_type_tab
+    </select>
+</mapper>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace对应mapper接口所在的位置-->
+<mapper namespace="top.cerbur.graduation.framework.dao.LostInfoDao">
+
+    <select id="getLostInfoById" resultType="LostInfo">
+        SELECT *
+        FROM lost_info_tab
+        WHERE id = #{id}
+    </select>
+
+    <insert id="createNewLostInfo" parameterType="top.cerbur.graduation.framework.entity.LostInfo"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO `lost_info_tab`
+        (title, post_user, found_status, lost_type, school_id, lost_name, description, image, location, delete_status,
+         create_time, update_time)
+        VALUES (#{title}, #{postUser}, #{foundStatus}, #{lostType}, #{schoolId}, #{lostName}, #{description}, #{image},
+                #{location}, 0, NOW(), NOW())
+    </insert>
+
+    <select id="searchLost"
+            parameterType="top.cerbur.graduation.framework.bo.LostSearchInputBO"
+            resultType="top.cerbur.graduation.framework.bo.LostSearchOutputBO">
+        SELECT
+        ib.id as id,
+        ib.found_status as found_status,
+        ib.title as title,
+        ib.post_user as post_user_id,
+        ut.nick_name as post_nick_name,
+        ut.avatar as avatar,
+        ib.lost_type as lost_type,
+        tb.name as lost_type_name,
+        ib.school_id as school_id,
+        ib.lost_name as lost_name,
+        ib.description as description,
+        ib.image as image,
+        ib.location as location,
+        ib.create_time as create_time,
+        (SELECT COUNT(1) FROM lost_review_tab r WHERE r.info_id = ib.id AND r.delete_status = 0) as review
+        FROM
+        lost_info_tab as ib
+        LEFT JOIN
+        lost_type_tab tb on ib.lost_type = tb.id
+        LEFT JOIN
+        user_tab ut on ib.post_user = ut.id
+        WHERE 1=1
+        <if test=" id !=null and id !='' ">
+            and ib.id = #{id}
+        </if>
+        <if test=" deleteStatus !=null ">
+            and ib.delete_status = #{deleteStatus}
+        </if>
+        <if test=" foundStatus !=null ">
+            and ib.found_status = #{foundStatus}
+        </if>
+        <if test=" userId !=null and userId !='' ">
+            and ib.post_user = #{userId}
+        </if>
+        <if test=" schoolId !=null and schoolId !='' ">
+            and ib.school_id = #{schoolId}
+        </if>
+        <if test=" lostType !=null and lostType !='' ">
+            and ib.lost_type = #{lostType}
+        </if>
+        <if test=" keyword !=null and keyword !='' ">
+            and ib.description like CONCAT('%',#{keyword},'%')
+        </if>
+        <if test=" schoolIdList !=null and schoolIdList.size != 0">
+            and ib.school_id in
+            <foreach collection="schoolIdList" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test=" idList !=null and idList.size != 0">
+            and ib.id in
+            <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        ORDER BY ib.id DESC
+    </select>
+
+
+    <update id="deleteLostInfoById">
+        UPDATE lost_info_tab
+        SET delete_status = 1
+        WHERE id = #{id}
+    </update>
+
+    <update id="deleteLostInfoByUserIdAndId">
+        UPDATE lost_info_tab
+        SET delete_status = 1
+        WHERE id = #{lostId}
+          AND post_user = #{userId}
+    </update>
+
+    <update id="updateLostInfoFoundStatusByUserIdAndId">
+        UPDATE lost_info_tab
+        SET found_status = 1
+        WHERE id = #{lostId}
+          AND post_user = #{userId}
+    </update>
+
+
+</mapper>

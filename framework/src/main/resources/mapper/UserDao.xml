@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace对应mapper接口所在的位置-->
+<mapper namespace="top.cerbur.graduation.framework.dao.UserDao">
+    <select id="getUserById" resultType="User">
+        SELECT *
+        FROM user_tab
+        WHERE id = #{id}
+    </select>
+    <insert id="createNewUser" parameterType="top.cerbur.graduation.framework.entity.User"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO `user_tab`(role, open_id, name, nick_name, school_id, class_name, create_time, update_time)
+        VALUES (#{role}, #{openId}, #{name}, #{nickName}, #{schoolId}, #{className}, NOW(), NOW())
+    </insert>
+    <select id="getUserByOpenId" resultType="top.cerbur.graduation.framework.entity.User">
+        SELECT *
+        FROM user_tab
+        WHERE open_id = #{openId}
+    </select>
+    <select id="getSchoolIdByClassName" resultType="java.lang.String">
+        SELECT school_id
+        FROM user_tab
+        WHERE class_name = #{className}
+    </select>
+
+    <select id="searchUserBySchoolIdAndName" parameterType="top.cerbur.graduation.framework.entity.User"
+            resultType="top.cerbur.graduation.framework.entity.User">
+        SELECT *
+        FROM user_tab
+        WHERE school_id = #{schoolId}
+          AND name = #{name}
+        LIMIT 1
+    </select>
+
+    <update id="updateUserInfo" parameterType="top.cerbur.graduation.framework.bo.UserBO">
+        UPDATE user_tab
+        SET name        = #{name},
+            school_id   = #{schoolId},
+            nick_name   = #{nickName},
+            class_name  = #{className},
+            avatar      = #{avatar},
+            update_time = NOW()
+        WHERE id = #{id}
+    </update>
+</mapper>

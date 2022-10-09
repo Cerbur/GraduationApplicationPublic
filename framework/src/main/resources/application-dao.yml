@@ -1,0 +1,66 @@
+spring:
+  datasource:
+    url: jdbc:mysql://server1.cerbur.top:3306/graduation_db?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: 
+    password: 
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource  #当前数据源操作类型
+  redis:
+    host: server1.cerbur.top
+    port: 6380
+    password: 
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+    timeout: 30000
+  config:
+    activate:
+      on-profile: dao
+  kafka:
+    bootstrap-servers: "server1.cerbur.top:9092"
+    consumer:
+      # 配置消费者消息offset是否自动重置(消费者重连会能够接收最开始的消息)
+      auto-offset-reset: earliest
+    producer:
+      # 发送的对象信息变为json格式
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+logging:
+  level:
+    top.cerbur.graduation.framework.dao: debug
+    top.cerbur.graduation.framework.wechat: debug
+mybatis:
+  #匹配sql语句的映射文件的位置，classpat代表在resources下
+  mapper-locations: classpath:mapper/*.xml
+  #以下两个配置可以省略，然后在mapper映射文件中配置也是可以的。
+  #使用type-aliases-package中指定entity扫描包类让mybatis自定扫描到自定义的entity
+  type-aliases-package: top.cerbur.graduation.framework.entity
+  configuration:
+    # 开启驼峰uName自动映射到u_name
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
+wechat:
+  appId: 
+  secret: 
+
+kafka:
+  topic:
+    uniformMessage: uniformMessage
+
+oss:
+  accessKey: 
+  secretKey: 
+  bucket: gdutday
+  url: "http://img.cerbur.top/"
+ocr:
+  url: "http://server2.cerbur.top:8089/api/tr-run/"
+  compress: 460

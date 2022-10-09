@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: api
+  profiles:
+    active: dao
+server:
+  port: 8080

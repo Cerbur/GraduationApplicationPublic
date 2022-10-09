@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace对应mapper接口所在的位置-->
+<mapper namespace="top.cerbur.graduation.framework.dao.LostReviewDao">
+
+    <insert id="insertLostReview" parameterType="top.cerbur.graduation.framework.entity.LostReview"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO `lost_review_tab`
+        (info_id, post_user, reply_user, content, delete_status, create_time, update_time)
+        VALUES (#{infoId}, #{postUser}, #{replyUser}, #{content}, #{deleteStatus}, NOW(), NOW())
+    </insert>
+    <select id="searchReview"
+            parameterType="top.cerbur.graduation.framework.bo.LostReviewBO"
+            resultType="top.cerbur.graduation.framework.bo.LostReviewBO">
+        SELECT r.id,
+        r.info_id,
+        r.post_user,
+        r.reply_user,
+        r.content,
+        r.create_time,
+        t1.avatar,
+        t1.nick_name as post_nick_name,
+        t2.nick_name as reply_nick_name
+        FROM lost_review_tab r
+        INNER JOIN user_tab t1 ON r.post_user = t1.id
+        INNER JOIN user_tab t2 ON r.reply_user = t2.id
+        WHERE 1=1
+        <if test=" id !=null and id !='' ">
+            and r.id = #{id}
+        </if>
+        <if test=" infoId !=null and infoId !='' ">
+            and r.info_id = #{infoId}
+        </if>
+        <if test=" deleteStatus !=null ">
+            and r.delete_status = #{deleteStatus}
+        </if>
+    </select>
+
+    <update id="deleteLostReviewById">
+        UPDATE lost_review_tab
+        SET delete_status = 1
+        WHERE id = #{id}
+    </update>
+
+    <update id="deleteLostReviewByIdAndUser">
+        UPDATE lost_review_tab
+        SET delete_status = 1
+        WHERE id = #{reviewId}
+          AND post_user = #{userId}
+    </update>
+
+</mapper>
