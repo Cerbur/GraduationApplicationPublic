@@ -42,9 +42,9 @@ function tryLogin(tryTime,reslove) {
 
 在登陆后个人信息页面，可通过获取头像更新获取到微信的头像以更新头像，并在此页面中填写表单去修改个人的信息。
 
-![Untitled](%E7%B3%BB%E7%BB%9F%E8%AF%A6%E7%BB%86%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0%20821d84983a5c45bda4894cbb8c4fc14c/Untitled.png)
+![Untitled](imgs/Untitled.png)
 
-![Untitled](%E7%B3%BB%E7%BB%9F%E8%AF%A6%E7%BB%86%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0%20821d84983a5c45bda4894cbb8c4fc14c/Untitled%201.png)
+![Untitled](imgs/Untitled%201.png)
 
 ### 5.1.3 权限校验设计
 
@@ -82,7 +82,7 @@ public Result<UserVO> getUserInfo(@ModelAttribute UserVO userVO) {
 
 图片上传与文字识别如下所示
 
-![83300bee82c62511467e67f77be7a49.jpg](%E7%B3%BB%E7%BB%9F%E8%AF%A6%E7%BB%86%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0%20821d84983a5c45bda4894cbb8c4fc14c/83300bee82c62511467e67f77be7a49.jpg)
+![83300bee82c62511467e67f77be7a49.jpg](imgs/83300bee82c62511467e67f77be7a49.jpg)
 
 文件上传的核心代码
 
@@ -176,7 +176,7 @@ public Integer postNewLostBO(NewLostBO newLostBO) {
 
 失物信息上传后的展示
 
-![454b883824d47ca86fff9f04b87c69f.jpg](%E7%B3%BB%E7%BB%9F%E8%AF%A6%E7%BB%86%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0%20821d84983a5c45bda4894cbb8c4fc14c/454b883824d47ca86fff9f04b87c69f.jpg)
+![454b883824d47ca86fff9f04b87c69f.jpg](imgsimgs/454b883824d47ca86fff9f04b87c69f.jpg)
 
 ## 5.3 信息展示模块
 
@@ -184,21 +184,21 @@ public Integer postNewLostBO(NewLostBO newLostBO) {
 
 由于学号相近的同学可能所在的班级相同或者是所在的寝室相同或相近，我们会优先匹配学号相关的同学，和处在同一个班级的同学的信息展示给用户。因为用户认识失主的概率会更大。
 
-![f09af0c0e095b111a658d2000368f7f.jpg](%E7%B3%BB%E7%BB%9F%E8%AF%A6%E7%BB%86%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0%20821d84983a5c45bda4894cbb8c4fc14c/f09af0c0e095b111a658d2000368f7f.jpg)
+![f09af0c0e095b111a658d2000368f7f.jpg](imgs/f09af0c0e095b111a658d2000368f7f.jpg)
 
 ### 5.3.2 信息查询展示
 
 此外还会在广场提供查询功能方便用户检索信息。
 
-![d7f926a7344ad8ff7cfa2b9af2e8ce3.jpg](%E7%B3%BB%E7%BB%9F%E8%AF%A6%E7%BB%86%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0%20821d84983a5c45bda4894cbb8c4fc14c/d7f926a7344ad8ff7cfa2b9af2e8ce3.jpg)
+![d7f926a7344ad8ff7cfa2b9af2e8ce3.jpg](imgs/d7f926a7344ad8ff7cfa2b9af2e8ce3.jpg)
 
 ## 5.4 评论模块
 
 在失物信息的详情页面，用户可以在次发表评论与回复评论。
 
-![89a5ffde5ecd19a4ddd380fce643c5c.jpg](%E7%B3%BB%E7%BB%9F%E8%AF%A6%E7%BB%86%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0%20821d84983a5c45bda4894cbb8c4fc14c/89a5ffde5ecd19a4ddd380fce643c5c.jpg)
+![89a5ffde5ecd19a4ddd380fce643c5c.jpg](imgs/89a5ffde5ecd19a4ddd380fce643c5c.jpg)
 
-![f019aea8409110290382c829ba297e2.jpg](%E7%B3%BB%E7%BB%9F%E8%AF%A6%E7%BB%86%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0%20821d84983a5c45bda4894cbb8c4fc14c/f019aea8409110290382c829ba297e2.jpg)
+![f019aea8409110290382c829ba297e2.jpg](imgs/f019aea8409110290382c829ba297e2.jpg)
 
 ## 5.5 文字识别模块
 
@@ -282,12 +282,12 @@ public void consumeMessage(UniformMessageDTO dto) {
 
 管理员模块是独立于微信小程序客户端的网页端，由于系统不提供账号密码登录，所以使用扫码登录管理端网页。通过生成令牌的形式，将令牌绑定相应的信息发送给Web前端，生成对应的二维码，之后定时一小段时间向服务器查询这个令牌的状态，是否过期，是否被扫码，是否被确认。之后执行相应的状态更新，生成登录态令牌保存在浏览器，在后续请求过程带上这个登录态令牌以便在服务器完成对应的权限校验。下面简述一下扫码登录的过程与时序图
 
-![扫码登录时序图.drawio.png](%E7%B3%BB%E7%BB%9F%E8%AF%A6%E7%BB%86%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0%20821d84983a5c45bda4894cbb8c4fc14c/%E6%89%AB%E7%A0%81%E7%99%BB%E5%BD%95%E6%97%B6%E5%BA%8F%E5%9B%BE.drawio.png)
+![扫码登录时序图.drawio.png](imgs/%E6%89%AB%E7%A0%81%E7%99%BB%E5%BD%95%E6%97%B6%E5%BA%8F%E5%9B%BE.drawio.png)
 
 首先打开网页端后网页端发现无登录态令牌，向服务器发起请求获取到扫码登录令牌，转化成二维码展示给前端（请求1、返回2）。之后便开始定时轮询的任务检测扫码登录令牌状态，扫码登录令牌状态包括，未被扫码，已被扫码但未被确认，已确认，三种状态。（轮询3、返回4）未被扫码状态可以被角色为管理员的用户扫码并将扫码状态绑定到这个扫码登录令牌，并在小程序端弹出确认登录弹窗。（扫码5、请求6、返回7）管理端在此轮询周期会验证到登录态令牌已被扫码等待确认。（轮询8，返回9）小程序端点击确认登录，向服务器发起确认登录请求，将绑定个人信息与确认态绑定到登录态令牌中。（请求9，返回10）管理端在下一次轮询周期中检测到登录态令牌为已确认状态，获取其在Redis存储的信息拿到扫码的用户生成其登录态凭证存储在管理端用于后面的请求。（轮询11，返回12）此外在整个登录过程中，为了防止二维码泄露造成的安全问题，还设计了一个设备绑定的随机令牌，管理端在每次轮询中会携带此令牌，若使用攻击获取到二维码内容，强行获取登录态凭证，则会因为没有这个设备绑定的随机令牌而禁止访问。
 
 登录成功示意图
 
-![21f9527948c6c74e94ea76e81dc66a0.jpg](%E7%B3%BB%E7%BB%9F%E8%AF%A6%E7%BB%86%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0%20821d84983a5c45bda4894cbb8c4fc14c/21f9527948c6c74e94ea76e81dc66a0.jpg)
+![21f9527948c6c74e94ea76e81dc66a0.jpg](imgs/21f9527948c6c74e94ea76e81dc66a0.jpg)
 
 登录成功后，可在管理员页面管理相关的失物发布与评论信息。
